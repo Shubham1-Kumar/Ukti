@@ -1,0 +1,184 @@
+/* Import google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto&family=Lato&family=Montserrat&family=Open+Sans&family=Poppins&family=Raleway&family=Ubuntu&family=Merriweather&family=Playfair+Display&family=Nunito&family=Quicksand&family=Oswald&display=swap');
+@import "tailwindcss";
+
+/* src/styles/globals.css or wherever tailwind is imported */
+.scrollbar-hide {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+  
+/* === Quill Editor Cleanup === */
+.ql-container {
+  border: none !important;
+  font-size: 18px;
+  font-family: 'Roboto', 'sans-serif';
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+}
+
+.ql-editor {
+  min-height: 300px;
+  padding: 0;
+  padding-right: 20px;
+  line-height: 1.6;
+  font-family: 'Roboto', sans-serif; /* Match your editor font */
+  font-size: 24px;
+}
+.ql-editor::before {
+  font-style: normal !important; /* Removes italic */
+  font-family: 'serif'; /* Match your editor font */
+  color: #9ca3af; /* Optional: light gray */
+}
+
+.ql-editor img {
+  max-width: 100%;
+  max-height: 800px;
+  display: block;
+  margin: 1rem auto;
+  object-fit: contain;
+}
+
+
+.ql-toolbar {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* === Font Styles (applied when selected in editor) === */
+.ql-font-sans-serif {
+  font-family: sans-serif;
+}
+.ql-font-serif {
+  font-family: serif;
+}
+.ql-font-monospace {
+  font-family: monospace;
+}
+
+.ql-font-inter {
+  font-family: 'Inter', sans-serif;
+}
+.ql-font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+.ql-font-lato {
+  font-family: 'Lato', sans-serif;
+}
+.ql-font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+.ql-font-open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+.ql-font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+.ql-font-raleway {
+  font-family: 'Raleway', sans-serif;
+}
+.ql-font-ubuntu {
+  font-family: 'Ubuntu', sans-serif;
+}
+.ql-font-merriweather {
+  font-family: 'Merriweather', serif;
+}
+.ql-font-playfair-display {
+  font-family: 'Playfair Display', serif;
+}
+.ql-font-nunito {
+  font-family: 'Nunito', sans-serif;
+}
+.ql-font-quicksand {
+  font-family: 'Quicksand', sans-serif;
+}
+.ql-font-oswald {
+  font-family: 'Oswald', sans-serif;
+}
+
+/* === Quill Font Picker Labels === */
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="inter"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="inter"]::before {
+  content: 'Inter';
+  font-family: 'Inter', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="roboto"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="roboto"]::before {
+  content: 'Roboto';
+  font-family: 'Roboto', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="lato"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="lato"]::before {
+  content: 'Lato';
+  font-family: 'Lato', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="montserrat"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="montserrat"]::before {
+  content: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="open-sans"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="open-sans"]::before {
+  content: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="poppins"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="poppins"]::before {
+  content: 'Poppins';
+  font-family: 'Poppins', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="raleway"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="raleway"]::before {
+  content: 'Raleway';
+  font-family: 'Raleway', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="ubuntu"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="ubuntu"]::before {
+  content: 'Ubuntu';
+  font-family: 'Ubuntu', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="merriweather"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="merriweather"]::before {
+  content: 'Merriweather';
+  font-family: 'Merriweather', serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="playfair-display"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="playfair-display"]::before {
+  content: 'Playfair Display';
+  font-family: 'Playfair Display', serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="nunito"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="nunito"]::before {
+  content: 'Nunito';
+  font-family: 'Nunito', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="quicksand"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="quicksand"]::before {
+  content: 'Quicksand';
+  font-family: 'Quicksand', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="oswald"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="oswald"]::before {
+  content: 'Oswald';
+  font-family: 'Oswald', sans-serif;
+}

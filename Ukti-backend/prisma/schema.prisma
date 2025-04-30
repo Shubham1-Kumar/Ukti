@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DIRECT_DB_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  name          String
+  password      String
+  avatar        String?
+  bio           Json?
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  isDeleted     Boolean        @default(false)
+  isVerified    Boolean        @default(false)
+  updatedAt     DateTime       @updatedAt
+  articles      Article[]
+  bookmarks     Bookmark[]
+  comments      Comment[]
+  followers     Follower[]     @relation("followers")
+  following     Follower[]     @relation("following")
+  notes         Note[]
+  notifications Notification[]
+  articleLikes  ArticleLike[]
+}
+
+model Article {
+  id           String        @id @default(cuid())
+  title        String
+  content      Json
+  description  String?
+  authorId     String
+  categoryId   String?
+  likes        Int           @default(0)
+  views        Int           @default(0)
+  noOfComments Int           @default(0)
+  readingTime  Int
+  coverImage   String?
+  isFeatured   Boolean       @default(false)
+  status       String        @default("DRAFT")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  publishedAt  DateTime? // <- Add this (nullable)
+  author       User          @relation(fields: [authorId], references: [id])
+  category     Category?     @relation(fields: [categoryId], references: [id])
+  tags         ArticleTag[]  @relation("ArticleTags")
+  bookmarks    Bookmark[]
+  comments     Comment[]
+  notes        Note[]
+  articleLikes ArticleLike[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+  articleId String
+  createdAt DateTime @default(now())
+  article   Article  @relation(fields: [articleId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  articleId String
+  createdAt DateTime @default(now())
+  article   Article  @relation(fields: [articleId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([articleId, userId]) // prevents duplicate bookamrks
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  userId    String
+  articleId String
+  content   Json
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  article   Article  @relation(fields: [articleId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Follower {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+  follower    User     @relation("followers", fields: [followerId], references: [id])
+  following   User     @relation("following", fields: [followingId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  type      String?
+  userId    String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  tags        String[]
+  description String?
+  articles    Article[]
+}
+
+model ArticleTag {
+  id        String   @id @default(cuid())
+  tag       String
+  articleId String?
+  article   Article? @relation("ArticleTags", fields: [articleId], references: [id])
+
+  @@unique([tag, articleId]) // prevents duplicate tags to an article
+}
+
+model ArticleLike {
+  id        String   @id @default(cuid())
+  articleId String
+  userId    String
+  createdAt DateTime @default(now())
+
+  article Article @relation(fields: [articleId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([articleId, userId]) // prevents duplicate likes
+}
